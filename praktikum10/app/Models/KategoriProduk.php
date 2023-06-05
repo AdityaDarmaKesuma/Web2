@@ -18,7 +18,5 @@ class KategoriProduk extends Model
     ];
 
     //relasi funsgi produk untuk relasi has many
-    public function produk() {
-        return $this->hasMany(Produk::class);
-    }
+
 }

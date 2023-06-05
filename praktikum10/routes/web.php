@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 //Buat routing untuk produk pake controller
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
+
+Route::get('/kategori', [KategoriProdukController::class, 'index'])->name('kategoriproduk');
 
 
 //buat route untuk frontend index
