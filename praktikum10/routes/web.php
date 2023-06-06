@@ -37,5 +37,13 @@ Route::get('/darma', [FrontendController::class, 'index']);
 Route::get('/kesuma', [FrontendController::class, 'kesuma']);
 
 
-
-
+//Bikin routing untuk create dan store
+Route::get('/produk/create', [ProdukController::class, 'create']);
+//Bikin routing untuk kirim data menggunakan store
+Route::post('/produk/store', [ProdukController::class, 'store']);
+//Bikin routing untuk edit
+Route::get('/produk/edit/{id}', [ProdukController::class, 'edit']);
+//Bikin routing untuk edit data menggunakan update
+Route::put('/produk/update/{id}', [ProdukController::class, 'update']);
+//Bikin routing untuk delete data menggunakan destroy
+Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']);

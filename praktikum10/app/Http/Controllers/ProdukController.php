@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriProduk;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 //panggil model produk
@@ -28,7 +29,10 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        //
+        $kategori_produk = KategoriProduk::all();
+        $produk = Produk::all();
+
+        return view('admin.produk.create', compact('kategori_produk', 'produk'));
     }
 
     /**
@@ -36,7 +40,20 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Membuat tambah data / Validasi tambah data 
+        $produk = new Produk;
+        $produk->kode = $request->kode;
+        $produk->nama = $request->nama;
+        $produk->harga_jual = $request->harga_jual;
+        $produk->harga_beli = $request->harga_beli;
+        $produk->stok = $request->stok;
+        $produk->min_stok = $request->min_stok;
+        $produk->deskripsi = $request->deskripsi;
+        $produk->kategori_produk_id = $request->kategori_produk_id;
+        //simoen data nya
+        $produk->save();
+        //tampilin view produk-
+        return redirect('produk');
     }
 
     /**
@@ -52,22 +69,44 @@ class ProdukController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kategori_produk = KategoriProduk::all();
+        $produk = Produk::where('id', $id)->get();
+
+        return view('admin.produk.edit', compact('kategori_produk', 'produk'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        //Fitur edit data / Validasi ediut data 
+        $produk = Produk::find($request->id);
+        $produk->kode = $request->kode;
+        $produk->nama = $request->nama;
+        $produk->harga_jual = $request->harga_jual;
+        $produk->harga_beli = $request->harga_beli;
+        $produk->stok = $request->stok;
+        $produk->min_stok = $request->min_stok;
+        $produk->deskripsi = $request->deskripsi;
+        $produk->kategori_produk_id = $request->kategori_produk_id;
+        //simoen data nya
+        $produk->save();
+        //tampilin view produk-
+        return redirect('produk');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        //Fitur Delete Data
+        $produk = Produk::find($id);
+        $produk->delete();
+
+        //Balikin ke halaman produk
+        return redirect('produk')->with('success', 'Produk berhasil dihapus');
     }
 }
